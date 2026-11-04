@@ -332,8 +332,8 @@ All engine invariants, ports, and credentials are configurable via environment v
 
 ## 9. Author
 
-**Jayavignesh**  
-Website: [jayavignesh.dev](https://jayavignesh.dev)
+**Jaya Vignesh (Jayavignesh)**  
+[Portfolio](https://jayavignesh.dev) · [GitHub](https://github.com/i-viki) · [LinkedIn](https://www.linkedin.com/in/jayavigneshj/)
 
 ---
 
