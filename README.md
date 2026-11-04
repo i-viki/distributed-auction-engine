@@ -265,8 +265,8 @@ python tests/load_test_1000_bids.py
 ## 7. API & Event Stream Reference
 
 ### Interactive Documentation
-* **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-* **OpenAPI 3.0 Spec**: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+* **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+* **OpenAPI 3.0 Spec**: `http://localhost:8080/v3/api-docs`
 
 ### Core REST Endpoints
 
@@ -305,9 +305,9 @@ docker compose up --build -d
 ```
 
 Access Points:
-* **Trading Floor Web App**: [http://localhost:5173](http://localhost:5173)
-* **Backend REST API**: [http://localhost:8080](http://localhost:8080)
-* **Interactive API Docs**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+* **Trading Floor Web App**: `http://localhost:5173`
+* **Backend REST API**: `http://localhost:8080`
+* **Interactive API Docs**: `http://localhost:8080/swagger-ui.html`
 
 ### Configuration Reference (`docker/.env`)
 
