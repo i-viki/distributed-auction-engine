@@ -66,24 +66,24 @@ flowchart TB
         NODE2 --> BID_SVC
         BID_SVC <--> LUA_SEQ
         BID_SVC <--> AUTO_BID
-        SCHED -.->|State Transitions| BID_SVC
+        SCHED -.->|"State Transitions"| BID_SVC
     end
 
     subgraph PUB_SUB["Real-Time Event Distribution (Redis 7.2)"]
         REDIS_BUS[("Redis 7.2 Pub/Sub<br/>Channel: auction:bids:broadcast<br/>Port: 6379")]
-        BID_SVC -->|Publish New High Bid| REDIS_BUS
-        REDIS_BUS -->|Fanout Event| NODE1
-        REDIS_BUS -->|Fanout Event| NODE2
+        BID_SVC -->|"Publish New High Bid"| REDIS_BUS
+        REDIS_BUS -->|"Fanout Event"| NODE1
+        REDIS_BUS -->|"Fanout Event"| NODE2
     end
 
     subgraph STORAGE["Persistence Tier (PostgreSQL 16)"]
         PG[("PostgreSQL 16 Primary DB<br/>Port: 5432<br/>• auctions (OCC Versioned)<br/>• bids (Audit Trail)<br/>• users & autobids")]
-        BID_SVC -->|Atomic Update| PG
-        SCHED -->|Batch Transitions| PG
+        BID_SVC -->|"Atomic Update"| PG
+        SCHED -->|"Batch Transitions"| PG
     end
 
-    NODE1 -.->|STOMP Sub-50ms Push| UI
-    NODE2 -.->|STOMP Sub-50ms Push| UI
+    NODE1 -.->|"STOMP Sub-50ms Push"| UI
+    NODE2 -.->|"STOMP Sub-50ms Push"| UI
 ```
 
 ### Optimistic Lock Collision & Auto-Retry Loop
@@ -117,7 +117,7 @@ sequenceDiagram
 
     Note over Svc: Thread 2 enters retry loop (Attempt 1 of 3)
     Svc->>DB: Re-read Auction #1 (Version = 6, Highest = $500)
-    Note over Svc: Validate: $550 > $500 (Still Valid)
+    Note over Svc: Validate: Bid 550 exceeds Highest 500 (Still Valid)
     Svc->>DB: UPDATE auctions SET highest=$550, version=7 WHERE id=1 AND version=6
     DB-->>Svc: 1 row affected (SUCCESS on Retry)
     Svc->>WS: Broadcast new highest bid ($550) via Redis Pub/Sub
