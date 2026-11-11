@@ -22,7 +22,7 @@ An enterprise-grade, **high-throughput distributed auction engine and real-time 
 - **Optimistic Concurrency Control with Auto-Retry (`backend/.../BidService.java`):**
   Guarantees ACID transactional integrity through versioned atomic SQL updates (`WHERE id = ? AND version = ?`), falling back to a bounded 3-tier exponential retry loop upon collision.
 - **Real-Time Clustered State Broadcast (`backend/.../WebSocketConfig.java`):**
-  Fans out accepted bids across stateless application nodes via Redis Pub/Sub (`auction:bids:broadcast`) and pushes updates to active browser rooms via native STOMP WebSockets in $< 50\text{ms}$.
+  Fans out accepted bids across stateless application nodes via Redis Pub/Sub (`auction:bids:broadcast`) and pushes updates to active browser rooms via native STOMP WebSockets in &lt; 50ms.
 - **Dynamic Anti-Sniping Protection (`backend/.../AuctionClosingScheduler.java`):**
   Automatically detects bids placed within the final 2-minute closing window and dynamically extends auction end time by +2 minutes ($T_{end} \leftarrow T_{end} + \Delta t$) to defeat predatory sniping bots.
 - **Automated Proxy Bidding Agents (`backend/.../AutoBidService.java`):**
@@ -174,9 +174,9 @@ distributed-auction-engine/
 
 The engine guarantees absolute market integrity under high contention by decoupling microsecond evaluation from persistent writebacks:
 
-$$\Delta \text{Version} = 1 \iff \text{BidAmount} > \text{CurrentHighest} \land \text{ExpectedVersion} = \text{PersistedVersion}$$
+$$\Delta \text{Version} = 1 \iff \text{BidAmount} \gt \text{CurrentHighest} \land \text{ExpectedVersion} = \text{PersistedVersion}$$
 
-$$T_{end}' = \begin{cases} T_{end} + 120\text{s} & \text{if } (T_{end} - T_{\text{bid}}) \le 120\text{s} \\ T_{end} & \text{otherwise} \end{cases}$$
+$$T_{end}' = \begin{cases} T_{end} + 120\text{ s} & \text{if } (T_{end} - T_{\text{bid}}) \le 120\text{ s} \\ T_{end} & \text{otherwise} \end{cases}$$
 
 | Operational Invariant | Technical Mechanism | Guarantee |
 | :--- | :--- | :--- |
